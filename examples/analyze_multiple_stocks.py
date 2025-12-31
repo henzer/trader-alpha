@@ -1,9 +1,4 @@
 import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent.parent / "data-provider"))
-sys.path.insert(0, str(Path(__file__).parent.parent / "score-engine"))
-
 from src.providers import YFinanceProvider
 from src.models import Timeframe
 from src.scoring import calculate_stock_score

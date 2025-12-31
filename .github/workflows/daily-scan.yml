@@ -22,9 +22,9 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -r data-provider/requirements.txt
-          pip install -r score-engine/requirements.txt
-          pip install -r graph/requirements.txt
+          pip install -e ./data-provider
+          pip install -e ./score-engine
+          pip install -e ./graph
           pip install -r scanner/requirements.txt
       
       - name: Run daily scan

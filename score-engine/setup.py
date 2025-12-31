@@ -7,10 +7,9 @@ setup(
     author="Trading Alpha",
     packages=find_packages(),
     install_requires=[
-        "pandas>=2.0.0",
+        "pandas>=2.0.0,<3.0.0",
         "numpy>=1.24.0",
         "pydantic>=2.0.0",
-        "pandas-ta>=0.3.14b",
     ],
     extras_require={
         "dev": [

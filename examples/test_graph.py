@@ -1,10 +1,4 @@
 import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent.parent / "data-provider"))
-sys.path.insert(0, str(Path(__file__).parent.parent / "score-engine"))
-sys.path.insert(0, str(Path(__file__).parent.parent / "graph"))
-
 from src.providers import YFinanceProvider
 from src.models import Timeframe
 from src.indicators import calculate_bx_trender, calculate_market_bias, calculate_fibonacci_retracement

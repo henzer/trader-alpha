@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
-import sys
-import os
-from pathlib import Path
 from datetime import date
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict, Optional
 import time
-
-sys.path.insert(0, str(Path(__file__).parent.parent.parent / "data-provider"))
 
 from list_fetcher import get_all_symbols, get_symbol_to_lists_mapping
 from stock_analyzer import StockAnalyzer
