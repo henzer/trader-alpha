@@ -1,0 +1,39 @@
+name: Daily Stock Scanner
+
+on:
+  schedule:
+    - cron: '0 22 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  scan-stocks:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r data-provider/requirements.txt
+          pip install -r score-engine/requirements.txt
+          pip install -r graph/requirements.txt
+          pip install -r scanner/requirements.txt
+      
+      - name: Run daily scan
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          cd scanner/src
+          python daily_scan.py
+      
+      - name: Summary
+        run: echo "✅ Daily scan completed successfully"
