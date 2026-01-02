@@ -28,6 +28,7 @@ export async function getLatestStocks(limit = 50) {
     .select('*')
     .order('scan_date', { ascending: false })
     .order('score', { ascending: false })
+    .order('passed_filter', { ascending: false })
     .limit(limit)
 
   if (error) throw error
@@ -41,6 +42,7 @@ export async function getStocksByList(listName: string) {
     .ilike('list_name', `%${listName}%`)
     .order('scan_date', { ascending: false })
     .order('score', { ascending: false })
+    .order('passed_filter', { ascending: false })
 
   if (error) throw error
   return data as StockScore[]
