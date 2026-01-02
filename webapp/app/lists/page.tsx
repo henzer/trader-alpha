@@ -1,5 +1,6 @@
 import { getAllLists, getLatestStocks } from '@/lib/supabase'
 import StockTable from '@/components/StockTable'
+import LocalTime from '@/components/LocalTime'
 import Link from 'next/link'
 
 export const revalidate = 300 // Revalidate every 5 minutes
@@ -10,22 +11,13 @@ export default async function ListsPage() {
     getLatestStocks(100)
   ])
 
-  // Get latest scan date
-  const latestScanDate = stocks[0]?.scan_date
-    ? new Date(stocks[0].scan_date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      })
-    : 'N/A'
-
   return (
     <div>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Stock Lists</h1>
-        <p className="text-gray-400">Last scan: {latestScanDate}</p>
+        <p className="text-gray-400">
+          Last scan: {stocks[0]?.created_at ? <LocalTime date={stocks[0].created_at} /> : 'N/A'}
+        </p>
       </div>
 
       {/* List Tags */}

@@ -1,5 +1,6 @@
 import { getStocksByList, getAllLists } from '@/lib/supabase'
 import StockTable from '@/components/StockTable'
+import LocalTime from '@/components/LocalTime'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -24,16 +25,6 @@ export default async function ListDetailPage({
     notFound()
   }
 
-  const latestScanDate = stocks[0]?.scan_date
-    ? new Date(stocks[0].scan_date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      })
-    : 'N/A'
-
   return (
     <div>
       {/* Back Button */}
@@ -52,7 +43,7 @@ export default async function ListDetailPage({
           {listName} Stocks
         </h1>
         <p className="text-gray-400">
-          {stocks.length} stocks • Last scan: {latestScanDate}
+          {stocks.length} stocks • Last scan: {stocks[0]?.created_at ? <LocalTime date={stocks[0].created_at} /> : 'N/A'}
         </p>
       </div>
 

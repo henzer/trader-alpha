@@ -1,4 +1,5 @@
 import { getStockDetails } from '@/lib/supabase'
+import LocalTime from '@/components/LocalTime'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -138,7 +139,7 @@ export default async function StockDetailPage({
 
       {/* Metadata */}
       <div className="mt-8 text-sm text-gray-500">
-        Last updated: {new Date(stock.scan_date).toLocaleString()}
+        Last updated: <LocalTime date={stock.created_at} />
       </div>
     </div>
   )
