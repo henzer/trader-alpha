@@ -10,6 +10,9 @@ export default function StockTable({ stocks }: { stocks: StockScore[] }) {
         <thead className="bg-gray-800">
           <tr>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              #
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
               Symbol
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
@@ -17,9 +20,6 @@ export default function StockTable({ stocks }: { stocks: StockScore[] }) {
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
               Filter
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-              Lists
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
               Market Bias
@@ -33,8 +33,11 @@ export default function StockTable({ stocks }: { stocks: StockScore[] }) {
           </tr>
         </thead>
         <tbody className="bg-gray-900 divide-y divide-gray-700">
-          {stocks.map((stock) => (
+          {stocks.map((stock, index) => (
             <tr key={stock.id} className="hover:bg-gray-800 transition-colors">
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm text-gray-400">{index + 1}</div>
+              </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm font-medium text-white">{stock.symbol}</div>
               </td>
@@ -51,9 +54,6 @@ export default function StockTable({ stocks }: { stocks: StockScore[] }) {
                     FAIL
                   </span>
                 )}
-              </td>
-              <td className="px-6 py-4">
-                <div className="text-sm text-gray-300 max-w-xs truncate">{stock.list_name || 'N/A'}</div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-300">
