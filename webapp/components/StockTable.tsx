@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import type { StockScore } from '@/lib/supabase'
+import { calculateRiskReward } from '@/lib/supabase'
 
 export default function StockTable({ stocks }: { stocks: StockScore[] }) {
   return (
@@ -26,6 +27,9 @@ export default function StockTable({ stocks }: { stocks: StockScore[] }) {
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
               Fibonacci
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              R:R
             </th>
             <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">
               Action
@@ -70,6 +74,22 @@ export default function StockTable({ stocks }: { stocks: StockScore[] }) {
                     <span className="text-xs text-gray-500 ml-1">({stock.fibonacci_zone})</span>
                   )}
                 </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {(() => {
+                  const rr = calculateRiskReward(stock)
+                  if (!rr) return <span className="text-sm text-gray-500">N/A</span>
+                  const ratio = parseFloat(rr)
+                  return (
+                    <span className={`text-sm font-semibold ${
+                      ratio >= 2 ? 'text-green-400' : 
+                      ratio >= 1 ? 'text-yellow-400' : 
+                      'text-red-400'
+                    }`}>
+                      {rr}:1
+                    </span>
+                  )
+                })()}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <Link

@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS stock_scores (
   bx_color TEXT,
   swing_high DECIMAL(10, 2),
   swing_low DECIMAL(10, 2),
+  current_price DECIMAL(10, 2),
   list_name TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),

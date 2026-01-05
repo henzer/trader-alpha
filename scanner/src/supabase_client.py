@@ -49,6 +49,7 @@ class SupabaseClient:
             "bx_color": score_data.get("bx_trender_color", None),
             "swing_high": score_data.get("swing_high", None),
             "swing_low": score_data.get("swing_low", None),
+            "current_price": score_data.get("current_price", None),
             "list_name": list_name,
         }
         
@@ -81,6 +82,7 @@ class SupabaseClient:
                 "bx_color": score_data.get("bx_trender_color", None),
                 "swing_high": score_data.get("swing_high", None),
                 "swing_low": score_data.get("swing_low", None),
+                "current_price": score_data.get("current_price", None),
                 "list_name": list_name,
             }
             data_list.append(data)

@@ -32,6 +32,8 @@ class StockAnalyzer:
             
             fib_result = calculate_fibonacci_retracement(df_daily, lookback=50)
             
+            current_price = float(df_daily['Close'].iloc[-1]) if not df_daily.empty else None
+            
             result = {
                 "total_score": score.score_breakdown.total_score,
                 "passed_filter": score.score_breakdown.passed_filter,
@@ -42,6 +44,7 @@ class StockAnalyzer:
                 "bx_trender_color": score.score_breakdown.bx_trender_color.value if score.score_breakdown.bx_trender_color else None,
                 "swing_high": float(fib_result.swing_high) if fib_result else None,
                 "swing_low": float(fib_result.swing_low) if fib_result else None,
+                "current_price": current_price,
             }
             
             print(f"✅ {symbol}: Score={result['total_score']}/11, Filter={'PASS' if result['passed_filter'] else 'FAIL'}")
