@@ -24,14 +24,8 @@ class StockAnalyzer:
                 print(f"❌ {symbol}: No data available")
                 return None
             
-            if df_daily.empty:
-                print(f"❌ {symbol}: Empty daily dataframe")
-                return None
-            if df_weekly.empty:
-                print(f"❌ {symbol}: Empty weekly dataframe (daily had {len(df_daily)} rows)")
-                return None
-            if df_monthly.empty:
-                print(f"❌ {symbol}: Empty monthly dataframe (daily had {len(df_daily)} rows)")
+            if df_daily.empty or df_weekly.empty or df_monthly.empty:
+                print(f"❌ {symbol}: Empty dataframes")
                 return None
             
             score = calculate_stock_score(symbol, df_monthly, df_weekly, df_daily)
