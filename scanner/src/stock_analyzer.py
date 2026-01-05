@@ -32,7 +32,12 @@ class StockAnalyzer:
             
             fib_result = calculate_fibonacci_retracement(df_daily, lookback=50)
             
-            current_price = float(df_daily['close'].iloc[-1]) if not df_daily.empty else None
+            try:
+                current_price = float(df_daily['close'].iloc[-1]) if not df_daily.empty else None
+                if current_price is not None and (pd.isna(current_price) or not pd.np.isfinite(current_price)):
+                    current_price = None
+            except:
+                current_price = None
             
             result = {
                 "total_score": score.score_breakdown.total_score,
