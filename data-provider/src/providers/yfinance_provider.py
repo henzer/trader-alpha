@@ -140,7 +140,9 @@ class YFinanceProvider(BaseDataProvider):
             'low': 'min',
             'close': 'last',
             'volume': 'sum'
-        }).dropna()
+        })
+        
+        df_weekly = df_weekly.dropna(subset=['close'])
         
         return df_weekly
     
@@ -160,6 +162,8 @@ class YFinanceProvider(BaseDataProvider):
             'low': 'min',
             'close': 'last',
             'volume': 'sum'
-        }).dropna()
+        })
+        
+        df_monthly = df_monthly.dropna(subset=['close'])
         
         return df_monthly
