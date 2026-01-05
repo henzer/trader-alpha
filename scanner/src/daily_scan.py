@@ -35,7 +35,10 @@ def main():
     symbols = get_all_symbols()
     symbol_to_lists = get_symbol_to_lists_mapping()
     
-    print(f"   Found {len(symbols)} unique symbols\n")
+    # TEMP: Test with only 10 stocks
+    symbols = symbols[:10]
+    print(f"   ⚠️  TEST MODE: Using only {len(symbols)} stocks\n")
+    # print(f"   Found {len(symbols)} unique symbols\n")
     
     print("2. Downloading market data...")
     provider = YFinanceProvider(use_cache=False)

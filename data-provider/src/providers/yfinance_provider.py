@@ -129,7 +129,12 @@ class YFinanceProvider(BaseDataProvider):
         if df_daily.empty:
             return df_daily
         
-        df_weekly = df_daily.resample('W-FRI').agg({
+        required_cols = ['open', 'high', 'low', 'close', 'volume']
+        missing_cols = [col for col in required_cols if col not in df_daily.columns]
+        if missing_cols:
+            raise ValueError(f"Missing required columns: {missing_cols}")
+        
+        df_weekly = df_daily[required_cols].resample('W-FRI').agg({
             'open': 'first',
             'high': 'max',
             'low': 'min',
@@ -144,7 +149,12 @@ class YFinanceProvider(BaseDataProvider):
         if df_daily.empty:
             return df_daily
         
-        df_monthly = df_daily.resample('ME').agg({
+        required_cols = ['open', 'high', 'low', 'close', 'volume']
+        missing_cols = [col for col in required_cols if col not in df_daily.columns]
+        if missing_cols:
+            raise ValueError(f"Missing required columns: {missing_cols}")
+        
+        df_monthly = df_daily[required_cols].resample('ME').agg({
             'open': 'first',
             'high': 'max',
             'low': 'min',
