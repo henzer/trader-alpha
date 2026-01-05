@@ -52,8 +52,18 @@ def main():
     
     for symbol, df_daily in daily_data.items():
         try:
-            weekly_data[symbol] = provider.resample_to_weekly(df_daily)
-            monthly_data[symbol] = provider.resample_to_monthly(df_daily)
+            df_weekly = provider.resample_to_weekly(df_daily)
+            df_monthly = provider.resample_to_monthly(df_daily)
+            
+            if df_weekly.empty:
+                print(f"      ⚠️  {symbol}: Weekly resample resulted in empty dataframe (daily had {len(df_daily)} rows)")
+            else:
+                weekly_data[symbol] = df_weekly
+                
+            if df_monthly.empty:
+                print(f"      ⚠️  {symbol}: Monthly resample resulted in empty dataframe (daily had {len(df_daily)} rows)")
+            else:
+                monthly_data[symbol] = df_monthly
         except Exception as e:
             print(f"      ❌ {symbol}: Resample failed - {str(e)}")
     
