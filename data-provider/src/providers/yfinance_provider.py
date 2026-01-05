@@ -123,3 +123,33 @@ class YFinanceProvider(BaseDataProvider):
     def clear_old_cache(self, days: int = 7) -> None:
         if self.cache_manager:
             self.cache_manager.clear_old_cache(days)
+    
+    @staticmethod
+    def resample_to_weekly(df_daily: pd.DataFrame) -> pd.DataFrame:
+        if df_daily.empty:
+            return df_daily
+        
+        df_weekly = df_daily.resample('W-FRI').agg({
+            'open': 'first',
+            'high': 'max',
+            'low': 'min',
+            'close': 'last',
+            'volume': 'sum'
+        }).dropna()
+        
+        return df_weekly
+    
+    @staticmethod
+    def resample_to_monthly(df_daily: pd.DataFrame) -> pd.DataFrame:
+        if df_daily.empty:
+            return df_daily
+        
+        df_monthly = df_daily.resample('ME').agg({
+            'open': 'first',
+            'high': 'max',
+            'low': 'min',
+            'close': 'last',
+            'volume': 'sum'
+        }).dropna()
+        
+        return df_monthly

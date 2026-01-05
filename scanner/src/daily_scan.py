@@ -37,25 +37,31 @@ def main():
     
     print(f"   Found {len(symbols)} unique symbols\n")
     
-    print("2. Downloading market data in batches...")
+    print("2. Downloading market data...")
     provider = YFinanceProvider(use_cache=False)
     
     start_time = time.time()
     
-    print("   📥 Downloading DAILY data...")
+    print("   📥 Downloading DAILY data only...")
     daily_data = provider.get_multiple_stocks(symbols, Timeframe.DAILY, period="2y")
     print(f"      ✅ {len(daily_data)}/{len(symbols)} symbols downloaded")
     
-    print("   📥 Downloading WEEKLY data...")
-    weekly_data = provider.get_multiple_stocks(symbols, Timeframe.WEEKLY, period="2y")
-    print(f"      ✅ {len(weekly_data)}/{len(symbols)} symbols downloaded")
+    print("   🔄 Resampling to WEEKLY and MONTHLY...")
+    weekly_data = {}
+    monthly_data = {}
     
-    print("   📥 Downloading MONTHLY data...")
-    monthly_data = provider.get_multiple_stocks(symbols, Timeframe.MONTHLY, period="2y")
-    print(f"      ✅ {len(monthly_data)}/{len(symbols)} symbols downloaded")
+    for symbol, df_daily in daily_data.items():
+        try:
+            weekly_data[symbol] = provider.resample_to_weekly(df_daily)
+            monthly_data[symbol] = provider.resample_to_monthly(df_daily)
+        except Exception as e:
+            print(f"      ❌ {symbol}: Resample failed - {str(e)}")
+    
+    print(f"      ✅ Generated {len(weekly_data)} weekly datasets")
+    print(f"      ✅ Generated {len(monthly_data)} monthly datasets")
     
     download_time = time.time() - start_time
-    print(f"\n   ⏱️  Download completed in {download_time:.1f} seconds\n")
+    print(f"\n   ⏱️  Data preparation completed in {download_time:.1f} seconds\n")
     
     valid_symbols = set(daily_data.keys()) & set(weekly_data.keys()) & set(monthly_data.keys())
     print(f"3. Analyzing {len(valid_symbols)} stocks with complete data...")
