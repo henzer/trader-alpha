@@ -2,10 +2,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from src import YFinanceProvider, Timeframe
-from src import calculate_stock_score
-from src import calculate_fibonacci_retracement, calculate_market_bias, calculate_bx_trender
-from src import StockChart
+from src.providers import YFinanceProvider
+from src.models import Timeframe
+from src.scoring import calculate_stock_score
+from src.indicators import calculate_fibonacci_retracement, calculate_market_bias, calculate_bx_trender
+from src.stock_chart import StockChart
 
 app = FastAPI(title="Trader Alpha API", version="1.0.0")
 
