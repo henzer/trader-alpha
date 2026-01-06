@@ -7,6 +7,10 @@ COPY score-engine/ /app/score-engine/
 COPY graph/ /app/graph/
 COPY api/ /app/api/
 
+RUN pip install --no-cache-dir -e /app/data-provider
+RUN pip install --no-cache-dir -e /app/score-engine
+RUN pip install --no-cache-dir -e /app/graph
+
 WORKDIR /app/api
 
 RUN pip install --no-cache-dir -r requirements.txt
