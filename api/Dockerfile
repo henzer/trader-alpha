@@ -9,6 +9,8 @@ COPY data-provider/src /app/src
 COPY score-engine/src /app/src_score
 COPY graph/src /app/src_graph
 COPY api/main.py /app/main.py
+COPY api/models /app/models
+COPY api/utils /app/utils
 
 RUN cp -r /app/src_score/* /app/src/ && \
     cp -r /app/src_graph/* /app/src/
