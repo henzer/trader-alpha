@@ -27,6 +27,9 @@ export default function RootLayout({
                 <a href="/analyze" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                   Analyze
                 </a>
+                <a href="/draw" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  Draw Pattern
+                </a>
               </div>
             </div>
           </div>
